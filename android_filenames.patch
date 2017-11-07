@@ -1,0 +1,33 @@
+Index: local-cli/bundle/assetPathUtils.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- node_modules/react-native/local-cli/bundle/assetPathUtils.js	(revision f1258181eec84f73651d2fabd0d23764b8990ff8)
++++ node_modules/react-native/local-cli/bundle/assetPathUtils.js	(revision 394c0d92ae2dd418012171be6bb7bc0f74db3c7f)
+@@ -12,6 +12,7 @@
+ 'use strict';
+ 
+ import type {PackagerAsset} from '../../Libraries/Image/AssetRegistry';
++import md5 from 'md5';
+ 
+ /**
+  * FIXME: using number to represent discrete scale numbers is fragile in essence because of
+@@ -57,11 +58,7 @@
+ 
+ function getAndroidResourceIdentifier(asset: PackagerAsset) {
+   var folderPath = getBasePath(asset);
+-  return (folderPath + '/' + asset.name)
+-    .toLowerCase()
+-    .replace(/\//g, '_')           // Encode folder structure in file name
+-    .replace(/([^a-z0-9_])/g, '')  // Remove illegal chars
+-    .replace(/^assets_/, '');      // Remove "assets_" prefix
++  return 'a' + md5(folderPath + '/' + asset.name).toLowerCase();
+ }
+ 
+ function getBasePath(asset: PackagerAsset) {
+Index: package.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+
